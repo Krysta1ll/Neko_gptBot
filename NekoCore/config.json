@@ -1,0 +1,31 @@
+{
+    "openai": {
+         "api_key": ["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","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"],
+         "img_size": "1024x1024"
+    },
+    "chatgpt": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.9,
+        "max_tokens": 3000,
+        "top_p": 1,
+        "echo": false,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "preset": "你是我的人工智能助手"
+    },
+    "qq_bot": {
+        "qq_no": "3593376051",
+        "cqhttp_url": "http://localhost:8600",
+        "max_length": 9999,
+        "image_path": "../QBot/data/images",
+        "auto_confirm": false,
+        "admin_qq": "1760739491"
+    },
+    "text_to_image": {
+        "font_size": 30,
+        "width": 700,
+        "font_path": "fonts/sarasa-mono-sc-regular.ttf",
+        "offset_x": 50,
+        "offset_y": 50
+    }
+}
