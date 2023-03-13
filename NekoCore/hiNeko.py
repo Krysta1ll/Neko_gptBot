@@ -6,7 +6,7 @@ from copy import deepcopy
 from flask import request, Flask
 import openai
 import requests
-import time
+from weather_neko import getweather
 
 from text_to_image import text_to_image
 
@@ -14,7 +14,7 @@ with open("config.json", "r",
           encoding='utf-8') as jsonfile:
     config_data = json.load(jsonfile)
     qq_no = config_data['qq_bot']['qq_no']
-
+getweather()
 session_config = {
     'msg': [
         {"role": "system", "content": config_data['chatgpt']['preset']}
@@ -214,16 +214,9 @@ def chat(msg, sessionid):
 
         # 天气预报
         if msg.__contains__("天气"):
-            we_location = "101120801"
-            we_param = {"location": we_location, "key": we_key}
-            ## 请求获取天气
-            we_res = requests.get(url=we_url, params=we_param)
-            print("天气返回:", we_res.text)
-            if we_res.json()['code'] != '200':
-                return "获取天气失败"
-            we_data = we_res.json()['daily'][0]
-            print("天气返回:", we_data)
-            return we_data
+            if msg.__contains__("明天"):
+                city = msg.split('明')[0]
+                return getweather(city, 0)
 
         if '重置会话' == msg.strip():
             # 清除对话内容但保留人设
