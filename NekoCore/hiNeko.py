@@ -216,6 +216,7 @@ def chat(msg, sessionid):
         if msg.__contains__("天气"):
             if msg.__contains__("明天"):
                 city = msg.split('明')[0]
+                print(city)
                 return getweather(city, 0)
 
         if '重置会话' == msg.strip():
