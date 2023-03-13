@@ -14,7 +14,7 @@ with open("config.json", "r",
           encoding='utf-8') as jsonfile:
     config_data = json.load(jsonfile)
     qq_no = config_data['qq_bot']['qq_no']
-getweather()
+
 session_config = {
     'msg': [
         {"role": "system", "content": config_data['chatgpt']['preset']}
