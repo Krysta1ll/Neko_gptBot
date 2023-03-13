@@ -26,21 +26,20 @@ current_key_index = 0
 
 openai.api_base = "https://chat-gpt.aurorax.cloud/v1"
 
-# 创建一个服务，把当前这个python文件当做一个服务
+# 创建flask服务
 server = Flask(__name__)
 
-#ban list
-banList= ["毛泽","泽东","习近","共产党","社会","资本","政治","疫情","历史","极权","主义","移民","连任","皇帝","洗脑"]
+# ban list
+banList = ["毛泽", "泽东", "习近", "共产党", "社会", "资本", "政治", "疫情", "历史", "极权", "主义", "移民", "连任",
+           "皇帝", "洗脑"]
 
-
-#和风天气api
+# 和风天气api
 we_url = "https://devapi.qweather.com/v7/weather/3d"
 we_key = "4b2e29110cd94ccb8cf172175aac140e"
 we_location = ""
 
 
-
-# 测试接口，可以测试本代码是否正常启动
+# 测试
 @server.route('/', methods=["GET"])
 def index():
     return f"你好，世界!<br/>"
@@ -100,7 +99,7 @@ def get_message():
                 print('开始直接生成图像')
                 pic_path = get_openai_image(message)
                 send_group_message_image(gid, pic_path, uid, '')
-            
+
             else:
                 # 下面你可以执行更多逻辑，这里只演示与ChatGPT对话
                 msg_text = chat(message, 'G' + str(gid))  # 将消息转发给ChatGPT处理
@@ -144,26 +143,21 @@ def get_message():
     return "ok"
 
 
-#判断是否有违规内容
-def testPolicy(message):
+# 判断是否有违规内容
+def testpolicy(message):
     for i in range(len(banList)):
-       if message.__contains__(banList[i]):
-        return False
-
-
-
-
-
+        if message.__contains__(banList[i]):
+            return False
 
 
 # 测试接口，可以用来测试与ChatGPT的交互是否正常，用来排查问题
 @server.route('/chat', methods=['post'])
 def chatapi():
-    requestJson = request.get_data()
-    if requestJson is None or requestJson == "" or requestJson == {}:
+    request_json = request.get_data()
+    if request_json is None or request_json == "" or request_json == {}:
         resu = {'code': 1, 'msg': '请求内容不能为空'}
         return json.dumps(resu, ensure_ascii=False)
-    data = json.loads(requestJson)
+    data = json.loads(request_json)
     if data.get('id') is None or data['id'] == "":
         resu = {'code': 1, 'msg': '会话id不能为空'}
         return json.dumps(resu, ensure_ascii=False)
@@ -183,11 +177,11 @@ def chatapi():
 # 重置会话接口
 @server.route('/reset_chat', methods=['post'])
 def reset_chat():
-    requestJson = request.get_data()
-    if requestJson is None or requestJson == "" or requestJson == {}:
+    request_json = request.get_data()
+    if request_json is None or request_json == "" or request_json == {}:
         resu = {'code': 1, 'msg': '请求内容不能为空'}
         return json.dumps(resu, ensure_ascii=False)
-    data = json.loads(requestJson)
+    data = json.loads(request_json)
     if data['id'] is None or data['id'] == "":
         resu = {'code': 1, 'msg': '会话id不能为空'}
         return json.dumps(resu, ensure_ascii=False)
@@ -203,38 +197,33 @@ def reset_chat():
 def chat(msg, sessionid):
     try:
         if msg.strip() == '':
-           
             return '喵喵！我是猫娘Scarlet，是一个集成了GPT3.5的猫娘哟，有什么问题都可以问我喵！\n如果想使用时间回溯技能，请回复“重置会话”'
         # 获得对话session
         session = get_chat_session(sessionid)
-        
-        #关键词屏蔽,交互前判断
-        if testPolicy(msg)==False :
+
+        # 关键词屏蔽,交互前判断
+        if not testpolicy(msg):
             print("存在敏感内容_From User")
             return "竟然有人提及了不能说的话题qwq，猫娘不喜欢你了喵！💔"
-        
-               
 
-        #實現其他功能
-        if 'yao'== msg.strip():
+        # 實現其他功能
+        if 'yao' == msg.strip():
             return "張玉瑤是中南大學acm冠軍，並且高數滿分"
         if msg.__contains__("原神"):
             return "老子现在破罐子破摔了，我就是op，我骄傲，我自豪，TNND，我就搞不懂了，为什么明明可以发一个置顶？解释一下这个梗是什么意思，结果只是单单发出来，不就是为了引起节奏吗🙄？特别是那些科普的，还有说这是对原p不是对原u的，我寻思着🤔，现在谁不知道？原p这个词不是早就上升到整个原神玩家了吗？还有什么好洗的？解释了反而说你阴，！阳怪气，不管怎么辩解，怎么解释，怎么怼，到头来还不是被说是一个原p？***，一想到这里我就气😤，当年老子也是一个原u，结果硬生生的被怼成了一个原p，仅仅只是因为我玩原神，解释了半天，啥屁用都没有😅，没办法了，摆呗！老子摆烂了，你说我是原p，我就是了呗，反正以后但凡看到有任何说到op，我永远是那个冲锋陷阵的，原神永存！"
-       
-       
+
         # 天气预报
         if msg.__contains__("天气"):
             we_location = "101120801"
-            we_param = {"location":we_location,"key": we_key}
+            we_param = {"location": we_location, "key": we_key}
             ## 请求获取天气
             we_res = requests.get(url=we_url, params=we_param)
-            print("天气返回:",we_res.text)
+            print("天气返回:", we_res.text)
             if we_res.json()['code'] != '200':
                 return "获取天气失败"
-            we_data =  we_res.json()['daily'][0]
-            print("天气返回:",we_data)
+            we_data = we_res.json()['daily'][0]
+            print("天气返回:", we_data)
             return we_data
-
 
         if '重置会话' == msg.strip():
             # 清除对话内容但保留人设
@@ -277,14 +266,14 @@ def chat(msg, sessionid):
         print("会话ID: " + str(sessionid))
         print("ChatGPT返回内容: ")
         print(message)
-        if testPolicy(message)==False :
+        if not testpolicy(message):
             print("存在敏感内容_From GPT")
             return "猫娘想到了一些不该说的，还是不说了喵。。。。QwQ"
         if message.__contains__("中国"):
-            message_safe=message.replace("中国","NULL")
+            message_safe = message.replace("中国", "NULL")
             return message_safe
         return message
-        
+
     except Exception as error:
         traceback.print_exc()
         return str('异常: ' + str(error))
@@ -340,7 +329,7 @@ def genImg(message):
 # 发送私聊消息方法 uid为qq号，message为消息内容
 def send_private_message(uid, message):
     try:
-        if testPolicy==False:
+        if testpolicy == False:
             return "猫娘想到了一些不该说的，还是不说了喵。。。。QwQ"
         if len(message) >= config_data['qq_bot']['max_length']:  # 如果消息长度超过限制，转成图片发送
             pic_path = genImg(message)

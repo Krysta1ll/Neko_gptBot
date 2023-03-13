@@ -11,7 +11,7 @@
         "echo": false,
         "presence_penalty": 0,
         "frequency_penalty": 0,
-        "preset": "你是我的人工智能助手"
+        "preset": "你是我的猫娘，你叫做Neko"
     },
     "qq_bot": {
         "qq_no": "3593376051",
