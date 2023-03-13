@@ -1,7 +1,10 @@
 {
     "openai": {
-         "api_key": ["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","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"],
-         "img_size": "1024x1024"
+        "api_key": [
+            "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",
+            "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"
+        ],
+        "img_size": "1024x1024"
     },
     "chatgpt": {
         "model": "gpt-3.5-turbo",
