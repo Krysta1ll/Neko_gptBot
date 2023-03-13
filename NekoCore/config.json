@@ -1,6 +1,6 @@
 {
     "openai": {
-        "api_key": ["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","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"],
+        "api_key": [""],
         "img_size": "1024x1024"
     },
     "chatgpt": {
