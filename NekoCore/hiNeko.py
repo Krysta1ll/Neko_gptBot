@@ -202,7 +202,7 @@ def chat(msg, sessionid):
         session = get_chat_session(sessionid)
 
         # 关键词屏蔽,交互前判断
-        if not testpolicy(msg):
+        if testpolicy(msg) == False:
             print("存在敏感内容_From User")
             return "竟然有人提及了不能说的话题qwq，猫娘不喜欢你了喵！💔"
 
@@ -266,7 +266,7 @@ def chat(msg, sessionid):
         print("会话ID: " + str(sessionid))
         print("ChatGPT返回内容: ")
         print(message)
-        if not testpolicy(message):
+        if testpolicy(message) == False:
             print("存在敏感内容_From GPT")
             return "猫娘想到了一些不该说的，还是不说了喵。。。。QwQ"
         if message.__contains__("中国"):
