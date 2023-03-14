@@ -214,17 +214,17 @@ def chat(msg, sessionid):
 
         # 天气预报
         if msg.__contains__("天气"):
+            if msg.__contains__("今天天气"):
+                print(msg)
+                city = msg.strip().split('今')[0]
+                print(city)
+                return getweather(city, 0)
+            if msg.__contains__("明天天气"):
+                print(msg)
+                city = msg.strip().split('明')[0]
+                print(city)
+                return getweather(city, 1)
             return "喵喵！如果想要查询天气的话，请输入地名+今/明/后天天气，如【长沙明天天气】"
-        if msg.__contains__("今天天气"):
-            print(msg)
-            city = msg.strip().split('今')[0]
-            print(city)
-            return getweather(city, 0)
-        if msg.__contains__("明天天气"):
-            print(msg)
-            city = msg.strip().split('明')[0]
-            print(city)
-            return getweather(city, 1)
         if msg.__contains__("赏月"):
             print(msg)
             city = msg.strip().split('赏')[0]
