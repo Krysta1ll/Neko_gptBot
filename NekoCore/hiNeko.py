@@ -224,7 +224,7 @@ def chat(msg, sessionid):
                 city = msg.strip().split('明')[0]
                 print(city)
                 return getweather(city, 1)
-            return "喵喵！如果想要查询天气的话，请输入地名+今/明/后天天气，如【长沙明天天气】"
+            return "喵喵！如果想要查询天气的话，请输入地名+今/明天天气，如【长沙明天天气】。而且猫猫学会了观星术喵咪！！可以使用【长沙赏月】、【长沙看日出】来和猫猫一起看月亮太阳哇叽！！"
         if msg.__contains__("赏月"):
             print(msg)
             city = msg.strip().split('赏')[0]
