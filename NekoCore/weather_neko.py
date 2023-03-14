@@ -30,7 +30,7 @@ def getweather(city, num):
 
     # 处理天气数据
     date = we_res.json()['daily'][0]['fxDate']
-    date2 = we_res.json()['daily'][2]['fxDate']
+    date2 = we_res.json()['daily'][1]['fxDate']
 
     tempMax_d1 = we_res.json()['daily'][0]['tempMax']
     tempMin_d1 = we_res.json()['daily'][0]['tempMin']
