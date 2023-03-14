@@ -30,7 +30,7 @@ openai.api_base = "https://chat-gpt.aurorax.cloud/v1"
 server = Flask(__name__)
 
 # ban list
-banList = ["毛泽", "泽东", "习近", "共产党", "社会", "资本", "政治", "疫情", "历史", "极权", "主义", "移民", "连任",
+banList = ["毛泽", "泽东", "习近", "共产党", "政治", "疫情", "历史", "极权", "主义", "移民", "连任",
            "皇帝", "洗脑"]
 
 # 和风天气api
@@ -214,11 +214,28 @@ def chat(msg, sessionid):
 
         # 天气预报
         if msg.__contains__("天气"):
-            if msg.__contains__("明天"):
-                print(msg)
-                city = msg.strip().split('明')[0]
-                print(city)
-                return getweather(city, 0)
+            return "喵喵！如果想要查询天气的话，请输入地名+今/明/后天天气，如【长沙明天天气】"
+        if msg.__contains__("今天天气"):
+            print(msg)
+            city = msg.strip().split('今')[0]
+            print(city)
+            return getweather(city, 0)
+        if msg.__contains__("明天天气"):
+            print(msg)
+            city = msg.strip().split('明')[0]
+            print(city)
+            return getweather(city, 1)
+        if msg.__contains__("赏月"):
+            print(msg)
+            city = msg.strip().split('赏')[0]
+            print(city)
+            return getweather(city, 3)
+        if msg.__contains__("看日出"):
+            print(msg)
+            city = msg.strip().split('看')[0]
+            print(city)
+            return getweather(city, 4)
+
 
         if '重置会话' == msg.strip():
             # 清除对话内容但保留人设
