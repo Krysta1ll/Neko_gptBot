@@ -7,6 +7,7 @@ from flask import request, Flask
 import openai
 import requests
 from weather_neko import getweather
+from opBot import opBot
 
 from text_to_image import text_to_image
 
@@ -210,7 +211,7 @@ def chat(msg, sessionid):
         if 'yao' == msg.strip():
             return "張玉瑤是中南大學acm冠軍，並且高數滿分"
         if msg.__contains__("原神"):
-            return "老子现在破罐子破摔了，我就是op，我骄傲，我自豪，TNND，我就搞不懂了，为什么明明可以发一个置顶？解释一下这个梗是什么意思，结果只是单单发出来，不就是为了引起节奏吗🙄？特别是那些科普的，还有说这是对原p不是对原u的，我寻思着🤔，现在谁不知道？原p这个词不是早就上升到整个原神玩家了吗？还有什么好洗的？解释了反而说你阴，！阳怪气，不管怎么辩解，怎么解释，怎么怼，到头来还不是被说是一个原p？***，一想到这里我就气😤，当年老子也是一个原u，结果硬生生的被怼成了一个原p，仅仅只是因为我玩原神，解释了半天，啥屁用都没有😅，没办法了，摆呗！老子摆烂了，你说我是原p，我就是了呗，反正以后但凡看到有任何说到op，我永远是那个冲锋陷阵的，原神永存！"
+            return opBot()
 
         # 天气预报
         if msg.__contains__("天气"):

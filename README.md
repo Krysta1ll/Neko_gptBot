@@ -92,3 +92,23 @@ python3.8 hiNeko.py
 ## 一些需要注意的事
 
 cqhttp在远程登录时需要保证扫码手机与服务器在同一网络环境，我们可以采取上传token的方式进行登录
+
+CMRVDJDBJIQZJBDR
+
+BYZHJRRRACGACTUU
+
+1c24ec6cecdd6e979d27512d2db95d62
+
+f1bba76d393f0e7d2022ec6074f68037
+
+acme.sh --install-cert -d csu.closed.social \
+> --key-file       /etc/letsencrypt/live/csu.closed.social/  \
+> --fullchain-file /etc/letsencrypt/live/csu.closed.social/ \
+> --reloadcmd     "service nginx force-reload"
+
+
+
+Your cert is in: /root/.acme.sh/csu.closed.social_ecc/csu.closed.social.cer
+[Wed 15 Mar 2023 12:48:45 PM CST] Your cert key is in: /root/.acme.sh/csu.closed.social_ecc/csu.closed.social.key
+[Wed 15 Mar 2023 12:48:45 PM CST] The intermediate CA cert is in: /root/.acme.sh/csu.closed.social_ecc/ca.cer
+[Wed 15 Mar 2023 12:48:45 PM CST] And the full chain certs is there: /root/.acme.sh/csu.closed.social_ecc/fullchain.cer
